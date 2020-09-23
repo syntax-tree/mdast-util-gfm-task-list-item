@@ -38,13 +38,12 @@
     "mdast-util-to-markdown": "^0.3.0"
   },
   "devDependencies": {
-    "mdast-util-from-markdown": "^0.5.0",
-    "micromark-extension-gfm-task-list-item": "^0.2.0",
+    "mdast-util-from-markdown": "^0.6.0",
+    "micromark-extension-gfm-task-list-item": "^0.3.0",
     "nyc": "^15.0.0",
     "prettier": "^2.0.0",
     "remark-cli": "^8.0.0",
     "remark-preset-wooorm": "^7.0.0",
-    "string-width": "^4.2.0",
     "tape": "^5.0.0",
     "xo": "^0.33.0"
   },

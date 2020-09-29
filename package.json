@@ -38,7 +38,7 @@
     "mdast-util-to-markdown": "^0.3.0"
   },
   "devDependencies": {
-    "mdast-util-from-markdown": "^0.6.0",
+    "mdast-util-from-markdown": "^0.7.0",
     "micromark-extension-gfm-task-list-item": "^0.3.0",
     "nyc": "^15.0.0",
     "prettier": "^2.0.0",

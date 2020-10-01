@@ -153,7 +153,7 @@ test('mdast -> markdown', function (t) {
       },
       {extensions: [taskListItem.toMarkdown]}
     ),
-    '*   [x] a',
+    '*   [x] a\n',
     'should serialize a checked list item'
   )
 
@@ -166,7 +166,7 @@ test('mdast -> markdown', function (t) {
       },
       {extensions: [taskListItem.toMarkdown]}
     ),
-    '*   [ ] b',
+    '*   [ ] b\n',
     'should serialize an unchecked list item'
   )
 
@@ -178,7 +178,7 @@ test('mdast -> markdown', function (t) {
       },
       {extensions: [taskListItem.toMarkdown]}
     ),
-    '*   c',
+    '*   c\n',
     'should serialize an normal list item'
   )
 
@@ -199,7 +199,7 @@ test('mdast -> markdown', function (t) {
       },
       {extensions: [taskListItem.toMarkdown]}
     ),
-    '*   [d]: definition\n\n    e',
+    '*   [d]: definition\n\n    e\n',
     'should ignore `checked` if the head is not a paragraph'
   )
 

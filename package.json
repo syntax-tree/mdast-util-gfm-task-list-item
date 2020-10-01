@@ -35,7 +35,7 @@
     "to-markdown.js"
   ],
   "dependencies": {
-    "mdast-util-to-markdown": "^0.3.0"
+    "mdast-util-to-markdown": "^0.4.0"
   },
   "devDependencies": {
     "mdast-util-from-markdown": "^0.7.0",

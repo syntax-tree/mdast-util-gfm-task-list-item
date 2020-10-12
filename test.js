@@ -32,13 +32,13 @@ test('markdown -> mdast', function (t) {
                       type: 'text',
                       value: 'a',
                       position: {
-                        start: {line: 1, column: 6, offset: 5},
+                        start: {line: 1, column: 7, offset: 6},
                         end: {line: 1, column: 8, offset: 7}
                       }
                     }
                   ],
                   position: {
-                    start: {line: 1, column: 3, offset: 2},
+                    start: {line: 1, column: 7, offset: 6},
                     end: {line: 1, column: 8, offset: 7}
                   }
                 }

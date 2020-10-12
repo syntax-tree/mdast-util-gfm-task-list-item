@@ -1,6 +1,6 @@
 {
   "name": "mdast-util-gfm-task-list-item",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "mdast extension to parse and serialize GFM task list items",
   "license": "MIT",
   "keywords": [

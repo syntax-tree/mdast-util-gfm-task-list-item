@@ -140,6 +140,28 @@ test('markdown -> mdast', function (t) {
     'should not support a task list item when not in a list item'
   )
 
+  t.deepEqual(
+    removePosition(
+      fromMarkdown('* [x] *b*', {
+        extensions: [syntax],
+        mdastExtensions: [taskListItem.fromMarkdown]
+      }),
+      true
+    ).children[0].children[0],
+    {
+      type: 'listItem',
+      spread: false,
+      checked: true,
+      children: [
+        {
+          type: 'paragraph',
+          children: [{type: 'emphasis', children: [{type: 'text', value: 'b'}]}]
+        }
+      ]
+    },
+    'should support a text construct after the checkbox'
+  )
+
   t.end()
 })
 

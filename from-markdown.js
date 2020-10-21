@@ -23,9 +23,13 @@ function exitParagraphWithTaskListItem(token) {
   ) {
     // Must start with a space or a tab.
     head.value = head.value.slice(1)
-    head.position.start.column++
-    head.position.start.offset++
-    node.position.start = Object.assign({}, head.position.start)
+    if (head.value.length === 0) {
+      node.children.shift()
+    } else {
+      head.position.start.column++
+      head.position.start.offset++
+      node.position.start = Object.assign({}, head.position.start)
+    }
   }
 
   this.exit(token)

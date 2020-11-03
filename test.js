@@ -162,6 +162,32 @@ test('markdown -> mdast', function (t) {
     'should support a text construct after the checkbox'
   )
 
+  t.deepEqual(
+    removePosition(
+      fromMarkdown('* [x] a\n\n  b', {
+        extensions: [syntax],
+        mdastExtensions: [taskListItem.fromMarkdown]
+      }),
+      true
+    ).children[0].children[0],
+    {
+      type: 'listItem',
+      spread: true,
+      checked: true,
+      children: [
+        {
+          type: 'paragraph',
+          children: [{type: 'text', value: 'a'}]
+        },
+        {
+          type: 'paragraph',
+          children: [{type: 'text', value: 'b'}]
+        }
+      ]
+    },
+    'should support further paragraphs after checkboxes'
+  )
+
   t.end()
 })
 

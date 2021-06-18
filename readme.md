@@ -14,8 +14,12 @@ task list items in **[mdast][]**.
 When parsing (`from-markdown`), must be combined with
 [`micromark-extension-gfm-task-list-item`][extension].
 
-You probably shouldn’t use this package directly, but instead use
-[`remark-gfm`][remark-gfm] with **[remark][]**.
+## When to use this
+
+Use this if you’re dealing with the AST manually.
+It’s probably nicer to use [`remark-gfm`][remark-gfm] with **[remark][]**, which
+includes this but provides a nicer interface and makes it easier to combine with
+hundreds of plugins.
 
 ## Install
 
@@ -40,25 +44,25 @@ Say we have the following file, `example.md`:
 2. [x] …messages
 ```
 
-And our script, `example.js`, looks as follows:
+And our module, `example.js`, looks as follows:
 
 ```js
-var fs = require('fs')
-var fromMarkdown = require('mdast-util-from-markdown')
-var toMarkdown = require('mdast-util-to-markdown')
-var syntax = require('micromark-extension-gfm-task-list-item')
-var taskListItem = require('mdast-util-gfm-task-list-item')
+import fs from 'node:fs'
+import {fromMarkdown} from 'mdast-util-from-markdown'
+import {toMarkdown} from 'mdast-util-to-markdown'
+import {gfmTaskListItem} from 'micromark-extension-gfm-task-list-item'
+import {gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown} from 'mdast-util-gfm-task-list-item'
 
-var doc = fs.readFileSync('example.md')
+const doc = fs.readFileSync('example.md')
 
-var tree = fromMarkdown(doc, {
-  extensions: [syntax],
-  mdastExtensions: [taskListItem.fromMarkdown]
+const tree = fromMarkdown(doc, {
+  extensions: [gfmTaskListItem],
+  mdastExtensions: [gfmTaskListItemFromMarkdown]
 })
 
 console.log(tree)
 
-var out = toMarkdown(tree, {extensions: [taskListItem.toMarkdown]})
+const out = toMarkdown(tree, {extensions: [gfmTaskListItemToMarkdown]})
 
 console.log(out)
 ```

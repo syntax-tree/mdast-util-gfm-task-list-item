@@ -19,6 +19,9 @@ You probably shouldn’t use this package directly, but instead use
 
 ## Install
 
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -129,13 +132,13 @@ brevity):
 
 ## API
 
-### `taskListItem.fromMarkdown`
+This package exports the following identifier: `gfmTaskListItemFromMarkdown`,
+`gfmTaskListItemToMarkdown`.
+There is no default export.
 
-### `taskListItem.toMarkdown`
+### `gfmTaskListItemFromMarkdown`
 
-> Note: the separate extensions are also available at
-> `mdast-util-gfm-task-list-item/from-markdown` and
-> `mdast-util-gfm-task-list-item/to-markdown`.
+### `gfmTaskListItemToMarkdown`
 
 Support task list items.
 The exports are extensions, respectively

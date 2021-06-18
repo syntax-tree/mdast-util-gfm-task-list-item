@@ -1,15 +1,18 @@
-var test = require('tape')
-var fromMarkdown = require('mdast-util-from-markdown')
-var toMarkdown = require('mdast-util-to-markdown')
-var removePosition = require('unist-util-remove-position')
-var syntax = require('micromark-extension-gfm-task-list-item')
-var taskListItem = require('.')
+import test from 'tape'
+import fromMarkdown from 'mdast-util-from-markdown'
+import toMarkdown from 'mdast-util-to-markdown'
+import {removePosition} from 'unist-util-remove-position'
+import gfmTaskListItem from 'micromark-extension-gfm-task-list-item'
+import {
+  gfmTaskListItemFromMarkdown,
+  gfmTaskListItemToMarkdown
+} from './index.js'
 
 test('markdown -> mdast', function (t) {
   t.deepEqual(
     fromMarkdown('* [x] a', {
-      extensions: [syntax],
-      mdastExtensions: [taskListItem.fromMarkdown]
+      extensions: [gfmTaskListItem],
+      mdastExtensions: [gfmTaskListItemFromMarkdown]
     }),
     {
       type: 'root',
@@ -66,8 +69,8 @@ test('markdown -> mdast', function (t) {
   t.deepEqual(
     removePosition(
       fromMarkdown('*\n  [x] after a blank line', {
-        extensions: [syntax],
-        mdastExtensions: [taskListItem.fromMarkdown]
+        extensions: [gfmTaskListItem],
+        mdastExtensions: [gfmTaskListItemFromMarkdown]
       }),
       true
     ).children[0].children[0],
@@ -88,8 +91,8 @@ test('markdown -> mdast', function (t) {
   t.deepEqual(
     removePosition(
       fromMarkdown('* [x]\ttab', {
-        extensions: [syntax],
-        mdastExtensions: [taskListItem.fromMarkdown]
+        extensions: [gfmTaskListItem],
+        mdastExtensions: [gfmTaskListItemFromMarkdown]
       }),
       true
     ).children[0].children[0],
@@ -105,8 +108,8 @@ test('markdown -> mdast', function (t) {
   t.deepEqual(
     removePosition(
       fromMarkdown('* [x]: definition\n  [x] tasklist', {
-        extensions: [syntax],
-        mdastExtensions: [taskListItem.fromMarkdown]
+        extensions: [gfmTaskListItem],
+        mdastExtensions: [gfmTaskListItemFromMarkdown]
       }),
       true
     ).children[0].children[0],
@@ -131,8 +134,8 @@ test('markdown -> mdast', function (t) {
   t.deepEqual(
     removePosition(
       fromMarkdown('[x] tasklist', {
-        extensions: [syntax],
-        mdastExtensions: [taskListItem.fromMarkdown]
+        extensions: [gfmTaskListItem],
+        mdastExtensions: [gfmTaskListItemFromMarkdown]
       }),
       true
     ).children[0],
@@ -143,8 +146,8 @@ test('markdown -> mdast', function (t) {
   t.deepEqual(
     removePosition(
       fromMarkdown('* [x] *b*', {
-        extensions: [syntax],
-        mdastExtensions: [taskListItem.fromMarkdown]
+        extensions: [gfmTaskListItem],
+        mdastExtensions: [gfmTaskListItemFromMarkdown]
       }),
       true
     ).children[0].children[0],
@@ -165,8 +168,8 @@ test('markdown -> mdast', function (t) {
   t.deepEqual(
     removePosition(
       fromMarkdown('* [x] a\n\n  b', {
-        extensions: [syntax],
-        mdastExtensions: [taskListItem.fromMarkdown]
+        extensions: [gfmTaskListItem],
+        mdastExtensions: [gfmTaskListItemFromMarkdown]
       }),
       true
     ).children[0].children[0],
@@ -199,7 +202,7 @@ test('mdast -> markdown', function (t) {
         checked: true,
         children: [{type: 'paragraph', children: [{type: 'text', value: 'a'}]}]
       },
-      {extensions: [taskListItem.toMarkdown]}
+      {extensions: [gfmTaskListItemToMarkdown]}
     ),
     '*   [x] a\n',
     'should serialize a checked list item'
@@ -212,7 +215,7 @@ test('mdast -> markdown', function (t) {
         checked: false,
         children: [{type: 'paragraph', children: [{type: 'text', value: 'b'}]}]
       },
-      {extensions: [taskListItem.toMarkdown]}
+      {extensions: [gfmTaskListItemToMarkdown]}
     ),
     '*   [ ] b\n',
     'should serialize an unchecked list item'
@@ -224,7 +227,7 @@ test('mdast -> markdown', function (t) {
         type: 'listItem',
         children: [{type: 'paragraph', children: [{type: 'text', value: 'c'}]}]
       },
-      {extensions: [taskListItem.toMarkdown]}
+      {extensions: [gfmTaskListItemToMarkdown]}
     ),
     '*   c\n',
     'should serialize an normal list item'
@@ -245,7 +248,7 @@ test('mdast -> markdown', function (t) {
           {type: 'paragraph', children: [{type: 'text', value: 'e'}]}
         ]
       },
-      {extensions: [taskListItem.toMarkdown]}
+      {extensions: [gfmTaskListItemToMarkdown]}
     ),
     '*   [d]: definition\n\n    e\n',
     'should ignore `checked` if the head is not a paragraph'

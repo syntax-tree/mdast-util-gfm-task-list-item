@@ -8,7 +8,7 @@ import {
   gfmTaskListItemToMarkdown
 } from './index.js'
 
-test('markdown -> mdast', function (t) {
+test('markdown -> mdast', (t) => {
   t.deepEqual(
     fromMarkdown('* [x] a', {
       extensions: [gfmTaskListItem],
@@ -194,7 +194,7 @@ test('markdown -> mdast', function (t) {
   t.end()
 })
 
-test('mdast -> markdown', function (t) {
+test('mdast -> markdown', (t) => {
   t.deepEqual(
     toMarkdown(
       {

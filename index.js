@@ -20,12 +20,12 @@ function exitCheck(token) {
 }
 
 function exitParagraphWithTaskListItem(token) {
-  var parent = this.stack[this.stack.length - 2]
-  var node = this.stack[this.stack.length - 1]
-  var siblings = parent.children
-  var head = node.children[0]
-  var index = -1
-  var firstParaghraph
+  const parent = this.stack[this.stack.length - 2]
+  const node = this.stack[this.stack.length - 1]
+  const siblings = parent.children
+  const head = node.children[0]
+  let index = -1
+  let firstParaghraph
 
   if (
     parent &&
@@ -59,8 +59,8 @@ function exitParagraphWithTaskListItem(token) {
 }
 
 function listItemWithTaskListItem(node, parent, context) {
-  var value = defaultListItem(node, parent, context)
-  var head = node.children[0]
+  const head = node.children[0]
+  let value = defaultListItem(node, parent, context)
 
   if (typeof node.checked === 'boolean' && head && head.type === 'paragraph') {
     value = value.replace(/^(?:[*+-]|\d+\.)([\r\n]| {1,3})/, check)

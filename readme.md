@@ -17,9 +17,9 @@ When parsing (`from-markdown`), must be combined with
 ## When to use this
 
 Use this if you’re dealing with the AST manually.
-It’s probably nicer to use [`remark-gfm`][remark-gfm] with **[remark][]**, which
-includes this but provides a nicer interface and makes it easier to combine with
-hundreds of plugins.
+It’s might be better to use [`remark-gfm`][remark-gfm] with **[remark][]**,
+which includes this but provides a nicer interface and makes it easier to
+combine with hundreds of plugins.
 
 ## Install
 

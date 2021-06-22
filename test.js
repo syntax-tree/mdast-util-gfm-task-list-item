@@ -1,8 +1,8 @@
 import test from 'tape'
-import fromMarkdown from 'mdast-util-from-markdown'
-import toMarkdown from 'mdast-util-to-markdown'
+import {fromMarkdown} from 'mdast-util-from-markdown'
+import {toMarkdown} from 'mdast-util-to-markdown'
 import {removePosition} from 'unist-util-remove-position'
-import gfmTaskListItem from 'micromark-extension-gfm-task-list-item'
+import {gfmTaskListItem} from 'micromark-extension-gfm-task-list-item'
 import {
   gfmTaskListItemFromMarkdown,
   gfmTaskListItemToMarkdown
@@ -73,15 +73,28 @@ test('markdown -> mdast', (t) => {
         mdastExtensions: [gfmTaskListItemFromMarkdown]
       }),
       true
-    ).children[0].children[0],
+    ),
     {
-      type: 'listItem',
-      spread: false,
-      checked: true,
+      type: 'root',
       children: [
         {
-          type: 'paragraph',
-          children: [{type: 'text', value: 'after a blank line'}]
+          type: 'list',
+          ordered: false,
+          start: null,
+          spread: false,
+          children: [
+            {
+              type: 'listItem',
+              spread: false,
+              checked: true,
+              children: [
+                {
+                  type: 'paragraph',
+                  children: [{type: 'text', value: 'after a blank line'}]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -95,12 +108,27 @@ test('markdown -> mdast', (t) => {
         mdastExtensions: [gfmTaskListItemFromMarkdown]
       }),
       true
-    ).children[0].children[0],
+    ),
     {
-      type: 'listItem',
-      spread: false,
-      checked: true,
-      children: [{type: 'paragraph', children: [{type: 'text', value: 'tab'}]}]
+      type: 'root',
+      children: [
+        {
+          type: 'list',
+          ordered: false,
+          start: null,
+          spread: false,
+          children: [
+            {
+              type: 'listItem',
+              spread: false,
+              checked: true,
+              children: [
+                {type: 'paragraph', children: [{type: 'text', value: 'tab'}]}
+              ]
+            }
+          ]
+        }
+      ]
     },
     'should support a task list item follwed by a tab'
   )
@@ -112,20 +140,36 @@ test('markdown -> mdast', (t) => {
         mdastExtensions: [gfmTaskListItemFromMarkdown]
       }),
       true
-    ).children[0].children[0],
+    ),
     {
-      type: 'listItem',
-      spread: false,
-      checked: true,
+      type: 'root',
       children: [
         {
-          type: 'definition',
-          identifier: 'x',
-          label: 'x',
-          title: null,
-          url: 'definition'
-        },
-        {type: 'paragraph', children: [{type: 'text', value: 'tasklist'}]}
+          type: 'list',
+          ordered: false,
+          start: null,
+          spread: false,
+          children: [
+            {
+              type: 'listItem',
+              spread: false,
+              checked: true,
+              children: [
+                {
+                  type: 'definition',
+                  identifier: 'x',
+                  label: 'x',
+                  title: null,
+                  url: 'definition'
+                },
+                {
+                  type: 'paragraph',
+                  children: [{type: 'text', value: 'tasklist'}]
+                }
+              ]
+            }
+          ]
+        }
       ]
     },
     'should support a task list item after a definition'
@@ -138,8 +182,13 @@ test('markdown -> mdast', (t) => {
         mdastExtensions: [gfmTaskListItemFromMarkdown]
       }),
       true
-    ).children[0],
-    {type: 'paragraph', children: [{type: 'text', value: '[x] tasklist'}]},
+    ),
+    {
+      type: 'root',
+      children: [
+        {type: 'paragraph', children: [{type: 'text', value: '[x] tasklist'}]}
+      ]
+    },
     'should not support a task list item when not in a list item'
   )
 
@@ -150,15 +199,30 @@ test('markdown -> mdast', (t) => {
         mdastExtensions: [gfmTaskListItemFromMarkdown]
       }),
       true
-    ).children[0].children[0],
+    ),
     {
-      type: 'listItem',
-      spread: false,
-      checked: true,
+      type: 'root',
       children: [
         {
-          type: 'paragraph',
-          children: [{type: 'emphasis', children: [{type: 'text', value: 'b'}]}]
+          type: 'list',
+          ordered: false,
+          start: null,
+          spread: false,
+          children: [
+            {
+              type: 'listItem',
+              spread: false,
+              checked: true,
+              children: [
+                {
+                  type: 'paragraph',
+                  children: [
+                    {type: 'emphasis', children: [{type: 'text', value: 'b'}]}
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -172,19 +236,26 @@ test('markdown -> mdast', (t) => {
         mdastExtensions: [gfmTaskListItemFromMarkdown]
       }),
       true
-    ).children[0].children[0],
+    ),
     {
-      type: 'listItem',
-      spread: true,
-      checked: true,
+      type: 'root',
       children: [
         {
-          type: 'paragraph',
-          children: [{type: 'text', value: 'a'}]
-        },
-        {
-          type: 'paragraph',
-          children: [{type: 'text', value: 'b'}]
+          type: 'list',
+          ordered: false,
+          start: null,
+          spread: false,
+          children: [
+            {
+              type: 'listItem',
+              spread: true,
+              checked: true,
+              children: [
+                {type: 'paragraph', children: [{type: 'text', value: 'a'}]},
+                {type: 'paragraph', children: [{type: 'text', value: 'b'}]}
+              ]
+            }
+          ]
         }
       ]
     },

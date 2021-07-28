@@ -1,4 +1,5 @@
 /**
+ * @typedef {Extract<import('mdast').Root|import('mdast').Content, import('unist').Parent>} Parent
  * @typedef {import('mdast').ListItem} ListItem
  * @typedef {import('mdast').Paragraph} Paragraph
  * @typedef {import('mdast').BlockContent} BlockContent
@@ -27,19 +28,15 @@ export const gfmTaskListItemToMarkdown = {
 
 /** @type {FromMarkdownHandle} */
 function exitCheck(token) {
+  const node = /** @type {ListItem} */ (this.stack[this.stack.length - 2])
   // We’re always in a paragraph, in a list item.
-  this.stack[this.stack.length - 2].checked =
-    token.type === 'taskListCheckValueChecked'
+  node.checked = token.type === 'taskListCheckValueChecked'
 }
 
 /** @type {FromMarkdownHandle} */
 function exitParagraphWithTaskListItem(token) {
-  const parent = this.stack[this.stack.length - 2]
-  /** @type {Paragraph} */
-  // @ts-expect-error: must be true.
-  const node = this.stack[this.stack.length - 1]
-  /** @type {BlockContent[]} */
-  // @ts-expect-error: check whether `parent` is a `listItem` later.
+  const parent = /** @type {Parent} */ (this.stack[this.stack.length - 2])
+  const node = /** @type {Paragraph} */ (this.stack[this.stack.length - 1])
   const siblings = parent.children
   const head = node.children[0]
   let index = -1
@@ -67,12 +64,13 @@ function exitParagraphWithTaskListItem(token) {
 
       if (head.value.length === 0) {
         node.children.shift()
-      } else {
-        // @ts-expect-error: must be true.
+      } else if (
+        node.position &&
+        head.position &&
+        typeof head.position.start.offset === 'number'
+      ) {
         head.position.start.column++
-        // @ts-expect-error: must be true.
         head.position.start.offset++
-        // @ts-expect-error: must be true.
         node.position.start = Object.assign({}, head.position.start)
       }
     }

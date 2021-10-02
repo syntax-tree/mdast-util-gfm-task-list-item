@@ -311,9 +311,9 @@ test('mdast -> markdown', (t) => {
         checked: true,
         children: [
           {
-            // @ts-expect-error: definitions are fine.
             type: 'definition',
             label: 'd',
+            identifier: 'd',
             title: null,
             url: 'definition'
           },

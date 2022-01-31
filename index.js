@@ -10,6 +10,7 @@
  */
 
 import {listItem} from 'mdast-util-to-markdown/lib/handle/list-item.js'
+import {track} from 'mdast-util-to-markdown/lib/util/track.js'
 
 /** @type {FromMarkdownExtension} */
 export const gfmTaskListItemFromMarkdown = {
@@ -83,11 +84,23 @@ function exitParagraphWithTaskListItem(token) {
  * @type {ToMarkdownHandle}
  * @param {ListItem} node
  */
-function listItemWithTaskListItem(node, parent, context) {
+function listItemWithTaskListItem(node, parent, context, safeOptions) {
   const head = node.children[0]
-  let value = listItem(node, parent, context)
+  const checkable =
+    typeof node.checked === 'boolean' && head && head.type === 'paragraph'
+  const checkbox = '[' + (node.checked ? 'x' : ' ') + '] '
+  const tracker = track(safeOptions)
 
-  if (typeof node.checked === 'boolean' && head && head.type === 'paragraph') {
+  if (checkable) {
+    tracker.move(checkbox)
+  }
+
+  let value = listItem(node, parent, context, {
+    ...safeOptions,
+    ...tracker.current()
+  })
+
+  if (checkable) {
     value = value.replace(/^(?:[*+-]|\d+\.)([\r\n]| {1,3})/, check)
   }
 
@@ -98,6 +111,6 @@ function listItemWithTaskListItem(node, parent, context) {
    * @returns {string}
    */
   function check($0) {
-    return $0 + '[' + (node.checked ? 'x' : ' ') + '] '
+    return $0 + checkbox
   }
 }

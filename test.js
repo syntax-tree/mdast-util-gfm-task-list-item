@@ -1,4 +1,5 @@
-import test from 'tape'
+import assert from 'node:assert/strict'
+import test from 'node:test'
 import {fromMarkdown} from 'mdast-util-from-markdown'
 import {toMarkdown} from 'mdast-util-to-markdown'
 import {removePosition} from 'unist-util-remove-position'
@@ -8,8 +9,8 @@ import {
   gfmTaskListItemToMarkdown
 } from './index.js'
 
-test('markdown -> mdast', (t) => {
-  t.deepEqual(
+test('markdown -> mdast', () => {
+  assert.deepEqual(
     fromMarkdown('* [x] a', {
       extensions: [gfmTaskListItem],
       mdastExtensions: [gfmTaskListItemFromMarkdown]
@@ -66,7 +67,7 @@ test('markdown -> mdast', (t) => {
     'should support task list items'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     removePosition(
       fromMarkdown('*\n  [x] after a blank line', {
         extensions: [gfmTaskListItem],
@@ -101,7 +102,7 @@ test('markdown -> mdast', (t) => {
     'should support a task list item after a blank line'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     removePosition(
       fromMarkdown('* [x]\ttab', {
         extensions: [gfmTaskListItem],
@@ -133,7 +134,7 @@ test('markdown -> mdast', (t) => {
     'should support a task list item follwed by a tab'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     removePosition(
       fromMarkdown('* [x]: definition\n  [x] tasklist', {
         extensions: [gfmTaskListItem],
@@ -175,7 +176,7 @@ test('markdown -> mdast', (t) => {
     'should support a task list item after a definition'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     removePosition(
       fromMarkdown('[x] tasklist', {
         extensions: [gfmTaskListItem],
@@ -192,7 +193,7 @@ test('markdown -> mdast', (t) => {
     'should not support a task list item when not in a list item'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     removePosition(
       fromMarkdown('* [x] *b*', {
         extensions: [gfmTaskListItem],
@@ -229,7 +230,7 @@ test('markdown -> mdast', (t) => {
     'should support a text construct after the checkbox'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     removePosition(
       fromMarkdown('* [x] a\n\n  b', {
         extensions: [gfmTaskListItem],
@@ -261,12 +262,10 @@ test('markdown -> mdast', (t) => {
     },
     'should support further paragraphs after checkboxes'
   )
-
-  t.end()
 })
 
-test('mdast -> markdown', (t) => {
-  t.deepEqual(
+test('mdast -> markdown', () => {
+  assert.deepEqual(
     toMarkdown(
       {
         type: 'listItem',
@@ -279,7 +278,7 @@ test('mdast -> markdown', (t) => {
     'should serialize a checked list item'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     toMarkdown(
       {
         type: 'listItem',
@@ -292,7 +291,7 @@ test('mdast -> markdown', (t) => {
     'should serialize an unchecked list item'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     toMarkdown(
       {
         type: 'listItem',
@@ -304,7 +303,7 @@ test('mdast -> markdown', (t) => {
     'should serialize an normal list item'
   )
 
-  t.deepEqual(
+  assert.deepEqual(
     toMarkdown(
       {
         type: 'listItem',
@@ -325,6 +324,4 @@ test('mdast -> markdown', (t) => {
     '*   [d]: definition\n\n    e\n',
     'should ignore `checked` if the head is not a paragraph'
   )
-
-  t.end()
 })

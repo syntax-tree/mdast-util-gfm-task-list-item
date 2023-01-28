@@ -3,6 +3,7 @@
  * @typedef {import('mdast').ListItem} ListItem
  * @typedef {import('mdast').Paragraph} Paragraph
  * @typedef {import('mdast').BlockContent} BlockContent
+ * @typedef {import('mdast-util-from-markdown').CompileContext} CompileContext
  * @typedef {import('mdast-util-from-markdown').Extension} FromMarkdownExtension
  * @typedef {import('mdast-util-from-markdown').Handle} FromMarkdownHandle
  * @typedef {import('mdast-util-to-markdown').Options} ToMarkdownExtension
@@ -27,14 +28,20 @@ export const gfmTaskListItemToMarkdown = {
   handlers: {listItem: listItemWithTaskListItem}
 }
 
-/** @type {FromMarkdownHandle} */
+/**
+ * @this {CompileContext}
+ * @type {FromMarkdownHandle}
+ */
 function exitCheck(token) {
   const node = /** @type {ListItem} */ (this.stack[this.stack.length - 2])
   // We’re always in a paragraph, in a list item.
   node.checked = token.type === 'taskListCheckValueChecked'
 }
 
-/** @type {FromMarkdownHandle} */
+/**
+ * @this {CompileContext}
+ * @type {FromMarkdownHandle}
+ */
 function exitParagraphWithTaskListItem(token) {
   const parent = /** @type {Parent} */ (this.stack[this.stack.length - 2])
   const node = /** @type {Paragraph} */ (this.stack[this.stack.length - 1])

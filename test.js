@@ -8,8 +8,17 @@ import {
   gfmTaskListItemFromMarkdown,
   gfmTaskListItemToMarkdown
 } from './index.js'
+import * as mod from './index.js'
 
-test('markdown -> mdast', () => {
+test('core', () => {
+  assert.deepEqual(
+    Object.keys(mod).sort(),
+    ['gfmTaskListItemFromMarkdown', 'gfmTaskListItemToMarkdown'],
+    'should expose the public api'
+  )
+})
+
+test('gfmTaskListItemFromMarkdown', () => {
   assert.deepEqual(
     fromMarkdown('* [x] a', {
       extensions: [gfmTaskListItem],
@@ -264,7 +273,7 @@ test('markdown -> mdast', () => {
   )
 })
 
-test('mdast -> markdown', () => {
+test('gfmTaskListItemToMarkdown', () => {
   assert.deepEqual(
     toMarkdown(
       {

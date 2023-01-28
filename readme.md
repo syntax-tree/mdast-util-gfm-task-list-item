@@ -19,6 +19,8 @@
 *   [API](#api)
     *   [`gfmTaskListItemFromMarkdown`](#gfmtasklistitemfrommarkdown)
     *   [`gfmTaskListItemToMarkdown`](#gfmtasklistitemtomarkdown)
+*   [HTML](#html)
+*   [Syntax](#syntax)
 *   [Syntax tree](#syntax-tree)
     *   [Nodes](#nodes)
     *   [Content model](#content-model)
@@ -30,20 +32,32 @@
 
 ## What is this?
 
-This package contains extensions that add support for the task list item syntax
-enabled by GFM to [`mdast-util-from-markdown`][mdast-util-from-markdown] and
-[`mdast-util-to-markdown`][mdast-util-to-markdown].
+This package contains two extensions that add support for GFM task list item
+syntax in markdown to [mdast][].
+These extensions plug into
+[`mdast-util-from-markdown`][mdast-util-from-markdown] (to support parsing
+task lists in markdown into a syntax tree) and
+[`mdast-util-to-markdown`][mdast-util-to-markdown] (to support serializing
+task lists in syntax trees to markdown).
 
 ## When to use this
 
-These tools are all rather low-level.
-In most cases, you’d want to use [`remark-gfm`][remark-gfm] with remark instead.
+You can use these extensions when you are working with
+`mdast-util-from-markdown` and `mdast-util-to-markdown` already.
+
+When working with `mdast-util-from-markdown`, you must combine this package
+with
+[`micromark-extension-gfm-task-list-item`][extension].
+
+When you don’t need a syntax tree, you can use [`micromark`][micromark]
+directly with `micromark-extension-gfm-task-list-item`.
 
 When you are working with syntax trees and want all of GFM, use
 [`mdast-util-gfm`][mdast-util-gfm] instead.
 
-When working with `mdast-util-from-markdown`, you must combine this package with
-[`micromark-extension-gfm-task-list-item`][extension].
+All these packages are used [`remark-gfm`][remark-gfm], which
+focusses on making it easier to transform content by abstracting these
+internals away.
 
 This utility does not handle how markdown is turned to HTML.
 That’s done by [`mdast-util-to-hast`][mdast-util-to-hast].
@@ -51,7 +65,7 @@ That’s done by [`mdast-util-to-hast`][mdast-util-to-hast].
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
+In Node.js (version 14.14+ and 16.0+), install with [npm][]:
 
 ```sh
 npm install mdast-util-gfm-task-list-item
@@ -174,17 +188,29 @@ console.log(out)
 
 ## API
 
-This package exports the identifiers `gfmTaskListItemFromMarkdown` and
-`gfmTaskListItemToMarkdown`.
+This package exports the identifiers
+[`gfmTaskListItemFromMarkdown`][api-gfmtasklistitemfrommarkdown] and
+[`gfmTaskListItemToMarkdown`][api-gfmtasklistitemtomarkdown].
 There is no default export.
 
 ### `gfmTaskListItemFromMarkdown`
 
-Extension for [`mdast-util-from-markdown`][mdast-util-from-markdown].
+Extension for [`mdast-util-from-markdown`][mdast-util-from-markdown]
+to enable GFM task lists ([`FromMarkdownExtension`][frommarkdownextension]).
 
 ### `gfmTaskListItemToMarkdown`
 
-Extension for [`mdast-util-to-markdown`][mdast-util-to-markdown].
+Extension for [`mdast-util-to-markdown`][mdast-util-to-markdown]
+to enable GFM task lists ([`ToMarkdownExtension`][tomarkdownextension]).
+
+## HTML
+
+This utility does not handle how markdown is turned to HTML.
+That’s done by [`mdast-util-to-hast`][mdast-util-to-hast].
+
+## Syntax
+
+See [Syntax in `micromark-extension-gfm-task-list-item`][syntax].
 
 ## Syntax tree
 
@@ -217,13 +243,13 @@ type ListContentGfm = ListItemGfm
 This package is fully typed with [TypeScript][].
 It does not export additional types.
 
-The `ListItemGfm` node type is supported in `@types/mdast` by default.
+The `ListItem` type of the mdast nodes are exposed from `@types/mdast`.
 
 ## Compatibility
 
 Projects maintained by the unified collective are compatible with all maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+As of now, that is Node.js 14.14+ and 16.0+.
 Our projects sometimes work with older versions, but this is not guaranteed.
 
 This plugin works with `mdast-util-from-markdown` version 1+ and
@@ -313,6 +339,18 @@ abide by its terms.
 
 [mdast-util-to-hast]: https://github.com/syntax-tree/mdast-util-to-hast
 
+[micromark]: https://github.com/micromark/micromark
+
 [extension]: https://github.com/micromark/micromark-extension-gfm-task-list-item
 
+[syntax]: https://github.com/micromark/micromark-extension-gfm-task-list-item#syntax
+
+[frommarkdownextension]: https://github.com/syntax-tree/mdast-util-from-markdown#extension
+
+[tomarkdownextension]: https://github.com/syntax-tree/mdast-util-to-markdown#options
+
 [gfm]: https://github.github.com/gfm/
+
+[api-gfmtasklistitemfrommarkdown]: #gfmtasklistitemfrommarkdown
+
+[api-gfmtasklistitemtomarkdown]: #gfmtasklistitemtomarkdown

@@ -17,8 +17,8 @@
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
-    *   [`gfmTaskListItemFromMarkdown`](#gfmtasklistitemfrommarkdown)
-    *   [`gfmTaskListItemToMarkdown`](#gfmtasklistitemtomarkdown)
+    *   [`gfmTaskListItemFromMarkdown()`](#gfmtasklistitemfrommarkdown)
+    *   [`gfmTaskListItemToMarkdown()`](#gfmtasklistitemtomarkdown)
 *   [HTML](#html)
 *   [Syntax](#syntax)
 *   [Syntax tree](#syntax-tree)
@@ -193,15 +193,25 @@ This package exports the identifiers
 [`gfmTaskListItemToMarkdown`][api-gfm-task-list-item-to-markdown].
 There is no default export.
 
-### `gfmTaskListItemFromMarkdown`
+### `gfmTaskListItemFromMarkdown()`
 
-Extension for [`mdast-util-from-markdown`][mdast-util-from-markdown]
-to enable GFM task lists ([`FromMarkdownExtension`][frommarkdownextension]).
+Create an extension for [`mdast-util-from-markdown`][mdast-util-from-markdown]
+to enable GFM task list items in markdown.
 
-### `gfmTaskListItemToMarkdown`
+###### Returns
 
-Extension for [`mdast-util-to-markdown`][mdast-util-to-markdown]
-to enable GFM task lists ([`ToMarkdownExtension`][tomarkdownextension]).
+Extension for `mdast-util-from-markdown` to enable GFM task list items
+([`FromMarkdownExtension`][frommarkdownextension]).
+
+### `gfmTaskListItemToMarkdown()`
+
+Create an extension for [`mdast-util-to-markdown`][mdast-util-to-markdown] to
+enable GFM task list items in markdown.
+
+###### Returns
+
+Extension for `mdast-util-to-markdown` to enable GFM task list items
+([`ToMarkdownExtension`][tomarkdownextension]).
 
 ## HTML
 

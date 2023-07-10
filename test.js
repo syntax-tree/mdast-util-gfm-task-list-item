@@ -23,7 +23,7 @@ test('gfmTaskListItemFromMarkdown', async function (t) {
     assert.deepEqual(
       fromMarkdown('* [x] a', {
         extensions: [gfmTaskListItem()],
-        mdastExtensions: [gfmTaskListItemFromMarkdown]
+        mdastExtensions: [gfmTaskListItemFromMarkdown()]
       }),
       {
         type: 'root',
@@ -82,7 +82,7 @@ test('gfmTaskListItemFromMarkdown', async function (t) {
     async function () {
       const tree = fromMarkdown('*\n  [x] after a blank line', {
         extensions: [gfmTaskListItem()],
-        mdastExtensions: [gfmTaskListItemFromMarkdown]
+        mdastExtensions: [gfmTaskListItemFromMarkdown()]
       })
 
       removePosition(tree, {force: true})
@@ -119,7 +119,7 @@ test('gfmTaskListItemFromMarkdown', async function (t) {
     async function () {
       const tree = fromMarkdown('* [x]\ttab', {
         extensions: [gfmTaskListItem()],
-        mdastExtensions: [gfmTaskListItemFromMarkdown]
+        mdastExtensions: [gfmTaskListItemFromMarkdown()]
       })
 
       removePosition(tree, {force: true})
@@ -153,7 +153,7 @@ test('gfmTaskListItemFromMarkdown', async function (t) {
     async function () {
       const tree = fromMarkdown('* [x]: definition\n  [x] tasklist', {
         extensions: [gfmTaskListItem()],
-        mdastExtensions: [gfmTaskListItemFromMarkdown]
+        mdastExtensions: [gfmTaskListItemFromMarkdown()]
       })
 
       removePosition(tree, {force: true})
@@ -197,7 +197,7 @@ test('gfmTaskListItemFromMarkdown', async function (t) {
     async function () {
       const tree = fromMarkdown('[x] tasklist', {
         extensions: [gfmTaskListItem()],
-        mdastExtensions: [gfmTaskListItemFromMarkdown]
+        mdastExtensions: [gfmTaskListItemFromMarkdown()]
       })
 
       removePosition(tree, {force: true})
@@ -216,7 +216,7 @@ test('gfmTaskListItemFromMarkdown', async function (t) {
     async function () {
       const tree = fromMarkdown('* [x] *b*', {
         extensions: [gfmTaskListItem()],
-        mdastExtensions: [gfmTaskListItemFromMarkdown]
+        mdastExtensions: [gfmTaskListItemFromMarkdown()]
       })
 
       removePosition(tree, {force: true})
@@ -255,7 +255,7 @@ test('gfmTaskListItemFromMarkdown', async function (t) {
     async function () {
       const tree = fromMarkdown('* [x] a\n\n  b', {
         extensions: [gfmTaskListItem()],
-        mdastExtensions: [gfmTaskListItemFromMarkdown]
+        mdastExtensions: [gfmTaskListItemFromMarkdown()]
       })
 
       removePosition(tree, {force: true})
@@ -297,7 +297,7 @@ test('gfmTaskListItemToMarkdown', async function (t) {
             {type: 'paragraph', children: [{type: 'text', value: 'a'}]}
           ]
         },
-        {extensions: [gfmTaskListItemToMarkdown]}
+        {extensions: [gfmTaskListItemToMarkdown()]}
       ),
       '* [x] a\n'
     )
@@ -313,7 +313,7 @@ test('gfmTaskListItemToMarkdown', async function (t) {
             {type: 'paragraph', children: [{type: 'text', value: 'b'}]}
           ]
         },
-        {extensions: [gfmTaskListItemToMarkdown]}
+        {extensions: [gfmTaskListItemToMarkdown()]}
       ),
       '* [ ] b\n'
     )
@@ -328,7 +328,7 @@ test('gfmTaskListItemToMarkdown', async function (t) {
             {type: 'paragraph', children: [{type: 'text', value: 'c'}]}
           ]
         },
-        {extensions: [gfmTaskListItemToMarkdown]}
+        {extensions: [gfmTaskListItemToMarkdown()]}
       ),
       '* c\n'
     )
@@ -353,7 +353,7 @@ test('gfmTaskListItemToMarkdown', async function (t) {
               {type: 'paragraph', children: [{type: 'text', value: 'e'}]}
             ]
           },
-          {extensions: [gfmTaskListItemToMarkdown]}
+          {extensions: [gfmTaskListItemToMarkdown()]}
         ),
         '* [d]: definition\n\n  e\n'
       )

@@ -74,14 +74,14 @@ npm install mdast-util-gfm-task-list-item
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown} from 'https://esm.sh/mdast-util-gfm-task-list-item@1'
+import {gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown} from 'https://esm.sh/mdast-util-gfm-task-list-item@2'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown} from 'https://esm.sh/mdast-util-gfm-task-list-item@1?bundle'
+  import {gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown} from 'https://esm.sh/mdast-util-gfm-task-list-item@2?bundle'
 </script>
 ```
 

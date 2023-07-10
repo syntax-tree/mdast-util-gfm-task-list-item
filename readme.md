@@ -65,7 +65,7 @@ That’s done by [`mdast-util-to-hast`][mdast-util-to-hast].
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 14.14+ and 16.0+), install with [npm][]:
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install mdast-util-gfm-task-list-item
@@ -101,10 +101,10 @@ Say our document `example.md` contains:
 
 ```js
 import fs from 'node:fs/promises'
-import {fromMarkdown} from 'mdast-util-from-markdown'
-import {toMarkdown} from 'mdast-util-to-markdown'
 import {gfmTaskListItem} from 'micromark-extension-gfm-task-list-item'
+import {fromMarkdown} from 'mdast-util-from-markdown'
 import {gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown} from 'mdast-util-gfm-task-list-item'
+import {toMarkdown} from 'mdast-util-to-markdown'
 
 const doc = await fs.readFile('example.md')
 
@@ -189,8 +189,8 @@ console.log(out)
 ## API
 
 This package exports the identifiers
-[`gfmTaskListItemFromMarkdown`][api-gfmtasklistitemfrommarkdown] and
-[`gfmTaskListItemToMarkdown`][api-gfmtasklistitemtomarkdown].
+[`gfmTaskListItemFromMarkdown`][api-gfm-task-list-item-from-markdown] and
+[`gfmTaskListItemToMarkdown`][api-gfm-task-list-item-to-markdown].
 There is no default export.
 
 ### `gfmTaskListItemFromMarkdown`
@@ -247,13 +247,13 @@ The `ListItem` type of the mdast nodes are exposed from `@types/mdast`.
 
 ## Compatibility
 
-Projects maintained by the unified collective are compatible with all maintained
+Projects maintained by the unified collective are compatible with maintained
 versions of Node.js.
-As of now, that is Node.js 14.14+ and 16.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
 
-This plugin works with `mdast-util-from-markdown` version 1+ and
-`mdast-util-to-markdown` version 1+.
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line,
+`mdast-util-gfm-task-list-item@^1`, compatible with Node.js 12.
 
 ## Related
 
@@ -293,9 +293,9 @@ abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/mdast-util-gfm-task-list-item
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/mdast-util-gfm-task-list-item.svg
+[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size&query=$.size.compressedSize&url=https://deno.bundlejs.com/?q=mdast-util-gfm-task-list-item
 
-[size]: https://bundlephobia.com/result?p=mdast-util-gfm-task-list-item
+[size]: https://bundlejs.com/?q=mdast-util-gfm-task-list-item
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
@@ -351,6 +351,6 @@ abide by its terms.
 
 [gfm]: https://github.github.com/gfm/
 
-[api-gfmtasklistitemfrommarkdown]: #gfmtasklistitemfrommarkdown
+[api-gfm-task-list-item-from-markdown]: #gfmtasklistitemfrommarkdown
 
-[api-gfmtasklistitemtomarkdown]: #gfmtasklistitemtomarkdown
+[api-gfm-task-list-item-to-markdown]: #gfmtasklistitemtomarkdown

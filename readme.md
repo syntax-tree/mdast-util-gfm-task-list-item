@@ -109,13 +109,13 @@ import {toMarkdown} from 'mdast-util-to-markdown'
 const doc = await fs.readFile('example.md')
 
 const tree = fromMarkdown(doc, {
-  extensions: [gfmTaskListItem],
-  mdastExtensions: [gfmTaskListItemFromMarkdown]
+  extensions: [gfmTaskListItem()],
+  mdastExtensions: [gfmTaskListItemFromMarkdown()]
 })
 
 console.log(tree)
 
-const out = toMarkdown(tree, {extensions: [gfmTaskListItemToMarkdown]})
+const out = toMarkdown(tree, {extensions: [gfmTaskListItemToMarkdown()]})
 
 console.log(out)
 ```

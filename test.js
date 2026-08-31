@@ -335,7 +335,7 @@ test('gfmTaskListItemToMarkdown', async function (t) {
   })
 
   await t.test(
-    'should ignore `checked` if the head is not a paragraph',
+    'should serialize a task list item when a definition precedes the paragraph',
     async function () {
       assert.deepEqual(
         toMarkdown(
@@ -355,8 +355,140 @@ test('gfmTaskListItemToMarkdown', async function (t) {
           },
           {extensions: [gfmTaskListItemToMarkdown()]}
         ),
-        '* [d]: definition\n\n  e\n'
+        '* [d]: definition\n\n  [x] e\n'
       )
+    }
+  )
+
+  await t.test(
+    'should serialize an unchecked task list item when a definition precedes the paragraph',
+    async function () {
+      assert.deepEqual(
+        toMarkdown(
+          {
+            type: 'listItem',
+            checked: false,
+            children: [
+              {
+                type: 'definition',
+                label: 'a',
+                identifier: 'a',
+                title: null,
+                url: '#'
+              },
+              {type: 'paragraph', children: [{type: 'text', value: 'a'}]}
+            ]
+          },
+          {extensions: [gfmTaskListItemToMarkdown()]}
+        ),
+        '* [a]: #\n\n  [ ] a\n'
+      )
+    }
+  )
+
+  await t.test(
+    'should prefix only the first paragraph after a definition',
+    async function () {
+      assert.deepEqual(
+        toMarkdown(
+          {
+            type: 'listItem',
+            checked: true,
+            children: [
+              {
+                type: 'definition',
+                label: 'd',
+                identifier: 'd',
+                title: null,
+                url: 'definition'
+              },
+              {type: 'paragraph', children: [{type: 'text', value: 'e'}]},
+              {type: 'paragraph', children: [{type: 'text', value: 'f'}]}
+            ]
+          },
+          {extensions: [gfmTaskListItemToMarkdown()]}
+        ),
+        '* [d]: definition\n\n  [x] e\n\n  f\n'
+      )
+    }
+  )
+
+  await t.test(
+    'should ignore `checked` if there is no paragraph',
+    async function () {
+      assert.deepEqual(
+        toMarkdown(
+          {
+            type: 'listItem',
+            checked: true,
+            children: [
+              {
+                type: 'definition',
+                label: 'd',
+                identifier: 'd',
+                title: null,
+                url: 'definition'
+              }
+            ]
+          },
+          {extensions: [gfmTaskListItemToMarkdown()]}
+        ),
+        '* [d]: definition\n'
+      )
+    }
+  )
+
+  await t.test(
+    'should round-trip a task list item that contains a definition',
+    async function () {
+      const tree = fromMarkdown('- [a]:#\n[ ] a', {
+        extensions: [gfmTaskListItem()],
+        mdastExtensions: [gfmTaskListItemFromMarkdown()]
+      })
+      const output = toMarkdown(tree, {
+        extensions: [gfmTaskListItemToMarkdown()]
+      })
+      const reparsed = fromMarkdown(output, {
+        extensions: [gfmTaskListItem()],
+        mdastExtensions: [gfmTaskListItemFromMarkdown()]
+      })
+
+      removePosition(tree, {force: true})
+      removePosition(reparsed, {force: true})
+
+      assert.deepEqual(tree, {
+        type: 'root',
+        children: [
+          {
+            type: 'list',
+            ordered: false,
+            start: null,
+            spread: false,
+            children: [
+              {
+                type: 'listItem',
+                spread: false,
+                checked: false,
+                children: [
+                  {
+                    type: 'definition',
+                    identifier: 'a',
+                    label: 'a',
+                    title: null,
+                    url: '#'
+                  },
+                  {
+                    type: 'paragraph',
+                    children: [{type: 'text', value: 'a'}]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      })
+      assert.deepEqual(reparsed, tree)
+      assert.equal(output, '* [a]: #\n  [ ] a\n')
     }
   )
 })

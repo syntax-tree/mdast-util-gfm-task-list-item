@@ -319,6 +319,82 @@ test('gfmTaskListItemToMarkdown', async function (t) {
     )
   })
 
+  await t.test(
+    'should serialize a task item with a parenthesis delimiter',
+    async function () {
+      assert.deepEqual(
+        toMarkdown(
+          {
+            type: 'list',
+            ordered: true,
+            start: 3,
+            spread: false,
+            children: [
+              {
+                type: 'listItem',
+                spread: false,
+                checked: true,
+                children: [
+                  {type: 'paragraph', children: [{type: 'text', value: 'a'}]}
+                ]
+              }
+            ]
+          },
+          {
+            bulletOrdered: ')',
+            extensions: [gfmTaskListItemToMarkdown()]
+          }
+        ),
+        '3) [x] a\n'
+      )
+    }
+  )
+
+  await t.test(
+    'should serialize a task item after a four-space prefix',
+    async function () {
+      assert.deepEqual(
+        toMarkdown(
+          {
+            type: 'list',
+            ordered: true,
+            start: 100,
+            spread: false,
+            children: [
+              {
+                type: 'listItem',
+                spread: false,
+                checked: false,
+                children: [
+                  {type: 'paragraph', children: [{type: 'text', value: 'a'}]}
+                ]
+              }
+            ]
+          },
+          {
+            extensions: [gfmTaskListItemToMarkdown()],
+            listItemIndent: 'tab'
+          }
+        ),
+        '100.    [ ] a\n'
+      )
+    }
+  )
+
+  await t.test('should serialize an empty task item', async function () {
+    assert.deepEqual(
+      toMarkdown(
+        {
+          type: 'listItem',
+          checked: true,
+          children: [{type: 'paragraph', children: []}]
+        },
+        {extensions: [gfmTaskListItemToMarkdown()]}
+      ),
+      '* [x] \n'
+    )
+  })
+
   await t.test('should serialize an normal list item', async function () {
     assert.deepEqual(
       toMarkdown(

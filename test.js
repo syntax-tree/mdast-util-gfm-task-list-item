@@ -319,7 +319,7 @@ test('gfmTaskListItemToMarkdown', async function (t) {
     )
   })
 
-  await t.test('should serialize an normal list item', async function () {
+  await t.test('should serialize a normal list item', async function () {
     assert.equal(
       toMarkdown(
         {
@@ -335,7 +335,7 @@ test('gfmTaskListItemToMarkdown', async function (t) {
   })
 
   await t.test(
-    'should ignore `checked` if the head is not a paragraph',
+    'should serialize a check after a definition',
     async function () {
       assert.equal(
         toMarkdown(
@@ -345,17 +345,228 @@ test('gfmTaskListItemToMarkdown', async function (t) {
             children: [
               {
                 type: 'definition',
-                label: 'd',
-                identifier: 'd',
+                identifier: 'a',
+                label: 'a',
                 title: null,
-                url: 'definition'
+                url: 'b'
               },
-              {type: 'paragraph', children: [{type: 'text', value: 'e'}]}
+              {type: 'paragraph', children: [{type: 'text', value: 'c'}]}
             ]
           },
           {extensions: [gfmTaskListItemToMarkdown()]}
         ),
-        '* [d]: definition\n\n  e\n'
+        '* [a]: b\n  [x] c\n'
+      )
+    }
+  )
+
+  await t.test(
+    'should serialize a check after a definition in a spread list item',
+    async function () {
+      assert.equal(
+        toMarkdown(
+          {
+            type: 'listItem',
+            spread: true,
+            checked: true,
+            children: [
+              {
+                type: 'definition',
+                identifier: 'a',
+                label: 'a',
+                title: null,
+                url: 'b'
+              },
+              {type: 'paragraph', children: [{type: 'text', value: 'c'}]}
+            ]
+          },
+          {extensions: [gfmTaskListItemToMarkdown()]}
+        ),
+        '* [a]: b\n  [x] c\n'
+      )
+    }
+  )
+
+  await t.test(
+    'should serialize a definition after a check normally',
+    async function () {
+      assert.equal(
+        toMarkdown(
+          {
+            type: 'listItem',
+            spread: true,
+            checked: true,
+            children: [
+              {type: 'paragraph', children: [{type: 'text', value: 'a'}]},
+              {
+                type: 'definition',
+                identifier: 'b',
+                label: 'b',
+                title: null,
+                url: 'c'
+              },
+              {type: 'paragraph', children: [{type: 'text', value: 'd'}]}
+            ]
+          },
+          {extensions: [gfmTaskListItemToMarkdown()]}
+        ),
+        '* [x] a\n\n  [b]: c\n\n  d\n'
+      )
+    }
+  )
+
+  await t.test('should ignore `checked` w/o paragraph', async function () {
+    assert.equal(
+      toMarkdown(
+        {
+          type: 'listItem',
+          checked: true,
+          children: [
+            {
+              type: 'definition',
+              identifier: 'a',
+              label: 'a',
+              title: null,
+              url: 'b'
+            },
+            {
+              type: 'definition',
+              identifier: 'c',
+              label: 'c',
+              title: null,
+              url: 'd'
+            }
+          ]
+        },
+        {extensions: [gfmTaskListItemToMarkdown()]}
+      ),
+      '* [a]: b\n\n  [c]: d\n'
+    )
+  })
+
+  await t.test(
+    'should ignore `checked` if the head is not a paragraph or definition',
+    async function () {
+      assert.equal(
+        toMarkdown(
+          {
+            type: 'listItem',
+            checked: true,
+            children: [
+              {type: 'thematicBreak'},
+              {type: 'paragraph', children: [{type: 'text', value: 'a'}]}
+            ]
+          },
+          {extensions: [gfmTaskListItemToMarkdown()]}
+        ),
+        '* ***\n\n  a\n'
+      )
+    }
+  )
+
+  await t.test(
+    'should ignore `checked` if the paragraph is empty',
+    async function () {
+      assert.equal(
+        toMarkdown(
+          {
+            type: 'listItem',
+            checked: true,
+            children: [{type: 'paragraph', children: []}]
+          },
+          {extensions: [gfmTaskListItemToMarkdown()]}
+        ),
+        '*\n'
+      )
+    }
+  )
+
+  await t.test(
+    'should serialize a check w/ `bulletOrdered: ")"`',
+    async function () {
+      assert.equal(
+        toMarkdown(
+          {
+            type: 'list',
+            ordered: true,
+            children: [
+              {
+                type: 'listItem',
+                checked: true,
+                children: [
+                  {type: 'paragraph', children: [{type: 'text', value: 'a'}]}
+                ]
+              }
+            ]
+          },
+          {bulletOrdered: ')', extensions: [gfmTaskListItemToMarkdown()]}
+        ),
+        '1) [x] a\n'
+      )
+    }
+  )
+
+  await t.test(
+    'should serialize a check w/ `listItemIndent: "tab"` and a wide marker',
+    async function () {
+      assert.equal(
+        toMarkdown(
+          {
+            type: 'list',
+            ordered: true,
+            start: 100,
+            children: [
+              {
+                type: 'listItem',
+                checked: true,
+                children: [
+                  {type: 'paragraph', children: [{type: 'text', value: 'a'}]}
+                ]
+              }
+            ]
+          },
+          {extensions: [gfmTaskListItemToMarkdown()], listItemIndent: 'tab'}
+        ),
+        '100.    [x] a\n'
+      )
+    }
+  )
+
+  await t.test(
+    'should escape what looks like a check after a check',
+    async function () {
+      assert.equal(
+        toMarkdown(
+          {
+            type: 'listItem',
+            checked: true,
+            children: [
+              {type: 'paragraph', children: [{type: 'text', value: '[x] a'}]}
+            ]
+          },
+          {extensions: [gfmTaskListItemToMarkdown()]}
+        ),
+        '* [x] \\[x] a\n'
+      )
+    }
+  )
+})
+
+test('gfmTaskListItemFromMarkdown and gfmTaskListItemToMarkdown', async function (t) {
+  await t.test(
+    'should roundtrip a check after a definition in a spread list item',
+    async function () {
+      const input = '* [a]: b\n  [x] c\n\n  d\n'
+
+      assert.equal(
+        toMarkdown(
+          fromMarkdown(input, {
+            extensions: [gfmTaskListItem()],
+            mdastExtensions: [gfmTaskListItemFromMarkdown()]
+          }),
+          {extensions: [gfmTaskListItemToMarkdown()]}
+        ),
+        input
       )
     }
   )

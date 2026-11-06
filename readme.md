@@ -117,66 +117,66 @@ console.log(out)
 
 ```js
 {
- type: 'root',
- children: [
-   {
-     type: 'list',
-     ordered: false,
-     start: null,
-     spread: false,
-     children: [
-       {
-         type: 'listItem',
-         spread: false,
-         checked: false,
-         children: [
-           {type: 'paragraph', children: [{type: 'text', value: 'To do'}]}
-         ]
-       },
-       {
-         type: 'listItem',
-         spread: false,
-         checked: true,
-         children: [
-           {type: 'paragraph', children: [{type: 'text', value: 'Done'}]}
-         ]
-       }
-     ]
-   },
-   {
-     type: 'list',
-     ordered: true,
-     start: 1,
-     spread: false,
-     children: [
-       {
-         type: 'listItem',
-         spread: false,
-         checked: null,
-         children: [
-           {type: 'paragraph', children: [{type: 'text', value: 'Mixed…'}]}
-         ]
-       },
-       {
-         type: 'listItem',
-         spread: false,
-         checked: true,
-         children: [
-           {type: 'paragraph', children: [{type: 'text', value: '…messages'}]}
-         ]
-       }
-     ]
-   }
- ]
-}
+  type: 'root',
+  children: [
+    {
+      type: 'list',
+      ordered: false,
+      start: null,
+      spread: false,
+      children: [
+        {
+          type: 'listItem',
+          spread: false,
+          checked: false,
+          children: [
+            {type: 'paragraph', children: [{type: 'text', value: 'To do'}]}
+          ]
+        },
+        {
+          type: 'listItem',
+          spread: false,
+          checked: true,
+          children: [
+            {type: 'paragraph', children: [{type: 'text', value: 'Done'}]}
+          ]
+        }
+      ]
+    },
+    {
+      type: 'list',
+      ordered: true,
+      start: 1,
+      spread: false,
+      children: [
+        {
+          type: 'listItem',
+          spread: false,
+          checked: null,
+          children: [
+            {type: 'paragraph', children: [{type: 'text', value: 'Mixed…'}]}
+          ]
+        },
+        {
+          type: 'listItem',
+          spread: false,
+          checked: true,
+          children: [
+            {type: 'paragraph', children: [{type: 'text', value: '…messages'}]}
+          ]
+        }
+      ]
+    }
+  ]
+ }
 ```
 
 ```markdown
-*   [ ] To do
-*   [x] Done
+* [ ] To do
+* [x] Done
 
-1.  Mixed…
-2.  [x] …messages
+1. Mixed…
+2. [x] …messages
 ```
 
 ## API
@@ -256,10 +256,14 @@ The `ListItem` type of the mdast nodes are exposed from `@types/mdast`.
 Projects maintained by the unified collective are compatible with maintained
 versions of Node.js.
 
-When we cut a new major release, we drop support for unmaintained versions of
-Node.
+When we cut a new major release,
+we drop support for unmaintained versions of Node.
 This means we try to keep the current release line,
-`mdast-util-gfm-task-list-item@^2`, compatible with Node.js 16.
+`mdast-util-gfm-task-list-item@2`,
+compatible with Node.js 16.
+
+This utility works with `mdast-util-from-markdown` version 2+ and
+`mdast-util-to-markdown` version 2+.
 
 ## Related
 

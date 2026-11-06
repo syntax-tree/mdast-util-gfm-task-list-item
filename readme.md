@@ -12,23 +12,23 @@
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When to use this](#when-to-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`gfmTaskListItemFromMarkdown()`](#gfmtasklistitemfrommarkdown)
-    *   [`gfmTaskListItemToMarkdown()`](#gfmtasklistitemtomarkdown)
-*   [HTML](#html)
-*   [Syntax](#syntax)
-*   [Syntax tree](#syntax-tree)
-    *   [Nodes](#nodes)
-    *   [Content model](#content-model)
-*   [Types](#types)
-*   [Compatibility](#compatibility)
-*   [Related](#related)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When to use this](#when-to-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`gfmTaskListItemFromMarkdown()`](#gfmtasklistitemfrommarkdown)
+  * [`gfmTaskListItemToMarkdown()`](#gfmtasklistitemtomarkdown)
+* [HTML](#html)
+* [Syntax](#syntax)
+* [Syntax tree](#syntax-tree)
+  * [Nodes](#nodes)
+  * [Content model](#content-model)
+* [Types](#types)
+* [Compatibility](#compatibility)
+* [Related](#related)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -267,13 +267,13 @@ This means we try to keep the current release line,
 
 ## Related
 
-*   [`remarkjs/remark-gfm`][remark-gfm]
-    — remark plugin to support GFM
-*   [`syntax-tree/mdast-util-gfm`][mdast-util-gfm]
-    — same but all of GFM (autolink literals, footnotes, strikethrough, tables,
-    tasklists)
-*   [`micromark/micromark-extension-gfm-task-list-item`][extension]
-    — micromark extension to parse GFM task list items
+* [`remarkjs/remark-gfm`][remark-gfm]
+  — remark plugin to support GFM
+* [`syntax-tree/mdast-util-gfm`][mdast-util-gfm]
+  — same but all of GFM (autolink literals, footnotes, strikethrough, tables,
+  tasklists)
+* [`micromark/micromark-extension-gfm-task-list-item`][extension]
+  — micromark extension to parse GFM task list items
 
 ## Contribute
 
@@ -291,76 +291,76 @@ abide by its terms.
 
 <!-- Definitions -->
 
-[build-badge]: https://github.com/syntax-tree/mdast-util-gfm-task-list-item/workflows/main/badge.svg
+[api-gfm-task-list-item-from-markdown]: #gfmtasklistitemfrommarkdown
 
-[build]: https://github.com/syntax-tree/mdast-util-gfm-task-list-item/actions
+[api-gfm-task-list-item-to-markdown]: #gfmtasklistitemtomarkdown
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/syntax-tree/mdast-util-gfm-task-list-item.svg
-
-[coverage]: https://codecov.io/github/syntax-tree/mdast-util-gfm-task-list-item
-
-[downloads-badge]: https://img.shields.io/npm/dm/mdast-util-gfm-task-list-item.svg
-
-[downloads]: https://www.npmjs.com/package/mdast-util-gfm-task-list-item
-
-[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size&query=$.size.compressedSize&url=https://deno.bundlejs.com/?q=mdast-util-gfm-task-list-item
-
-[size]: https://bundlejs.com/?q=mdast-util-gfm-task-list-item
-
-[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+[author]: https://wooorm.com
 
 [backers-badge]: https://opencollective.com/unified/backers/badge.svg
 
-[collective]: https://opencollective.com/unified
+[build]: https://github.com/syntax-tree/mdast-util-gfm-task-list-item/actions
 
-[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+[build-badge]: https://github.com/syntax-tree/mdast-util-gfm-task-list-item/workflows/main/badge.svg
 
 [chat]: https://github.com/syntax-tree/unist/discussions
 
-[npm]: https://docs.npmjs.com/cli/install
+[chat-badge]: https://img.shields.io/badge/chat-discussions-success.svg
+
+[coc]: https://github.com/syntax-tree/.github/blob/HEAD/code-of-conduct.md
+
+[collective]: https://opencollective.com/unified
+
+[contributing]: https://github.com/syntax-tree/.github/blob/HEAD/contributing.md
+
+[coverage]: https://codecov.io/github/syntax-tree/mdast-util-gfm-task-list-item
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/syntax-tree/mdast-util-gfm-task-list-item.svg
+
+[downloads]: https://www.npmjs.com/package/mdast-util-gfm-task-list-item
+
+[downloads-badge]: https://img.shields.io/npm/dm/mdast-util-gfm-task-list-item.svg
 
 [esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
 [esmsh]: https://esm.sh
 
-[typescript]: https://www.typescriptlang.org
+[extension]: https://github.com/micromark/micromark-extension-gfm-task-list-item
 
-[license]: license
+[frommarkdownextension]: https://github.com/syntax-tree/mdast-util-from-markdown#extension
 
-[author]: https://wooorm.com
+[gfm]: https://github.github.com/gfm/
 
 [health]: https://github.com/syntax-tree/.github
 
-[contributing]: https://github.com/syntax-tree/.github/blob/HEAD/contributing.md
-
-[support]: https://github.com/syntax-tree/.github/blob/HEAD/support.md
-
-[coc]: https://github.com/syntax-tree/.github/blob/HEAD/code-of-conduct.md
+[license]: license
 
 [mdast]: https://github.com/syntax-tree/mdast
 
-[remark-gfm]: https://github.com/remarkjs/remark-gfm
-
 [mdast-util-from-markdown]: https://github.com/syntax-tree/mdast-util-from-markdown
-
-[mdast-util-to-markdown]: https://github.com/syntax-tree/mdast-util-to-markdown
 
 [mdast-util-gfm]: https://github.com/syntax-tree/mdast-util-gfm
 
 [mdast-util-to-hast]: https://github.com/syntax-tree/mdast-util-to-hast
 
+[mdast-util-to-markdown]: https://github.com/syntax-tree/mdast-util-to-markdown
+
 [micromark]: https://github.com/micromark/micromark
 
-[extension]: https://github.com/micromark/micromark-extension-gfm-task-list-item
+[npm]: https://docs.npmjs.com/cli/install
+
+[remark-gfm]: https://github.com/remarkjs/remark-gfm
+
+[size]: https://bundlejs.com/?q=mdast-util-gfm-task-list-item
+
+[size-badge]: https://img.shields.io/badge/dynamic/json?label=minzipped%20size\&query=$.size.compressedSize\&url=https://deno.bundlejs.com/?q=mdast-util-gfm-task-list-item
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[support]: https://github.com/syntax-tree/.github/blob/HEAD/support.md
 
 [syntax]: https://github.com/micromark/micromark-extension-gfm-task-list-item#syntax
 
-[frommarkdownextension]: https://github.com/syntax-tree/mdast-util-from-markdown#extension
-
 [tomarkdownextension]: https://github.com/syntax-tree/mdast-util-to-markdown#options
 
-[gfm]: https://github.github.com/gfm/
-
-[api-gfm-task-list-item-from-markdown]: #gfmtasklistitemfrommarkdown
-
-[api-gfm-task-list-item-to-markdown]: #gfmtasklistitemtomarkdown
+[typescript]: https://www.typescriptlang.org

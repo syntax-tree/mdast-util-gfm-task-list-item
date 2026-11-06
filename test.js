@@ -288,7 +288,7 @@ test('gfmTaskListItemFromMarkdown', async function (t) {
 
 test('gfmTaskListItemToMarkdown', async function (t) {
   await t.test('should serialize a checked list item', async function () {
-    assert.deepEqual(
+    assert.equal(
       toMarkdown(
         {
           type: 'listItem',
@@ -304,7 +304,7 @@ test('gfmTaskListItemToMarkdown', async function (t) {
   })
 
   await t.test('should serialize an unchecked list item', async function () {
-    assert.deepEqual(
+    assert.equal(
       toMarkdown(
         {
           type: 'listItem',
@@ -320,7 +320,7 @@ test('gfmTaskListItemToMarkdown', async function (t) {
   })
 
   await t.test('should serialize an normal list item', async function () {
-    assert.deepEqual(
+    assert.equal(
       toMarkdown(
         {
           type: 'listItem',
@@ -337,7 +337,7 @@ test('gfmTaskListItemToMarkdown', async function (t) {
   await t.test(
     'should ignore `checked` if the head is not a paragraph',
     async function () {
-      assert.deepEqual(
+      assert.equal(
         toMarkdown(
           {
             type: 'listItem',

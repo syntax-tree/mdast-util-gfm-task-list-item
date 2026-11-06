@@ -465,7 +465,7 @@ test('gfmTaskListItemToMarkdown', async function (t) {
   )
 
   await t.test(
-    'should ignore `checked` if the paragraph is empty',
+    'should serialize a check w/ an encoded space if the paragraph is empty',
     async function () {
       assert.equal(
         toMarkdown(
@@ -476,7 +476,7 @@ test('gfmTaskListItemToMarkdown', async function (t) {
           },
           {extensions: [gfmTaskListItemToMarkdown()]}
         ),
-        '*\n'
+        '* [x] &#x20;\n'
       )
     }
   )
@@ -553,6 +553,24 @@ test('gfmTaskListItemToMarkdown', async function (t) {
 })
 
 test('gfmTaskListItemFromMarkdown and gfmTaskListItemToMarkdown', async function (t) {
+  await t.test(
+    'should roundtrip a check w/ an encoded space',
+    async function () {
+      const input = '* [x] &#x20;\n'
+
+      assert.equal(
+        toMarkdown(
+          fromMarkdown(input, {
+            extensions: [gfmTaskListItem()],
+            mdastExtensions: [gfmTaskListItemFromMarkdown()]
+          }),
+          {extensions: [gfmTaskListItemToMarkdown()]}
+        ),
+        input
+      )
+    }
+  )
+
   await t.test(
     'should roundtrip a check after a definition in a spread list item',
     async function () {

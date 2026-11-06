@@ -14,13 +14,9 @@ const xoConfig = [
       'jsdoc/informative-docs': 'off',
       'jsdoc/require-asterisk-prefix': 'off',
       'prefer-arrow-callback': 'off',
-      'regexp/prefer-named-capture-group': 'off',
-      'require-unicode-regexp': 'off',
       'unicorn/better-dom-traversing': 'off',
       'unicorn/max-nested-calls': 'off',
       'unicorn/no-array-sort': 'off',
-      // Wrong for replacer functions.
-      'unicorn/no-unsafe-string-replacement': 'off',
       'unicorn/prefer-at': 'off',
       'unicorn/require-array-sort-compare': 'off',
       'unicorn/single-line-block-comment-style': 'off'
